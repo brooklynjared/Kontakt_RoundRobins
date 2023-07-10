@@ -1,5 +1,7 @@
 # Kontakt Round Robin Library
 
-Round robin library for Kontakt percussion instruments. Requires Sublime KSP for use within the main script of an instrument.
+Round robin library for Kontakt percussion instruments. Assumes that sample content is unpitched and that all RR samples are mapped in one group, starting from note zero.
 
-Contains macros for creating RR sets with varying numbers of samples, and macro for playback handling in the `on note` callback.
+Requires Sublime KSP for use of macros from library within the main script.
+
+Contains numerous macros for creating RR sets with varying numbers of RR positions, and macros for playback handling within the `on note` callback.

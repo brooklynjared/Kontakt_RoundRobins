@@ -1,0 +1,65 @@
+import '_RR_Drum_library.ksp'
+
+
+	{ !! ----- RR MODULE BEGINS HERE ----- !! }
+
+
+	{Debug Mode}
+	declare const $RR_DEBUG_MODE := 1
+
+	{Set playable range -- to prevent the playing of zones mapped at extremes of the keyboard}
+	declare const $LOW_KEY := 24
+	declare const $HIGH_KEY := 120
+
+
+	{Clear key colors}
+    $i := 0
+    while ($i < 128)
+        set_key_color($i, $KEY_COLOR_INACTIVE)
+        inc($i)
+    end while
+
+	{ ----- RR Arrays ----- }
+
+	{A variable to store $EVENT_NOTE for use in functions}
+	declare $current_note := -1
+	watch_var($current_note)
+
+	{Array storing playback mode for each key
+	if -1 the key is not part of an RR set,
+	if 1 the key is a "normal" playback key}
+	declare %key_to_mode[128] := (-1)
+
+	{For each key, stores the group ID it belongs to}
+	declare %key_to_group_ID[128] := (-1) {More than one key could belong to the same group ex L/R snare mapping}
+
+	{For each key, stores the cycle max for the key's RR set}
+	declare %key_to_cycle_max[128] := (-1)
+
+	{Stores the current cycle position for each key}
+	declare %key_to_cycle_pos[128] := (0)
+
+	{Array of names for each key}
+	declare !key_to_name[128]
+
+
+	{ ----- Multi-Mic Position Arrays and buttons ----- }
+
+	declare %key_to_group_ID_mic1[128] := (-1)
+	declare %key_to_group_ID_mic2[128] := (-1)
+	declare %key_to_group_ID_mic3[128] := (-1)
+
+
+	{ ----- Create RR sets ----- }
+
+	// rr.init_create_basic_set(60, "hi hat pedal", 6, 1, $KEY_COLOR_RED) {note, name (a string), RR_max, grp_ID, color constant (ex. $KEY_COLOR_RED)}
+
+	rr.init_create_mic1_set(84, "Bongo bell - open", 7, 4, $KEY_COLOR_LIGHT_ORANGE) {note, name (a string), RR_max, grp_ID, color constant (ex. $KEY_COLOR_RED)}
+	rr.init_create_mic2_set(84, 5) {note, grp_ID (group ID for this particular mic position), #mic_number# (ex. #2#)}
+	rr.init_create_mic3_set(84, 6) {note, grp_ID (group ID for this particular mic position), #mic_number# (ex. #2#)}
+
+
+
+	{ ----- Create Non-RR zones and group assignments ----- }
+	rr.init_create_non_RR_zone(108, "Clave high", $KEY_COLOR_FUCHSIA, 7, 8, 9) {note, name, color_constant, mic1_grp_ID, mic2_grp_ID, mic3_grp_ID}
+

@@ -1,0 +1,65 @@
+
+
+{ ----- RR Note handling ----- }
+
+
+	{ DON'T DISALLOW ALL GROUPS !! }
+
+	ignore_event(EVENT_ID)
+
+	$current_note := $EVENT_NOTE
+
+	if (%key_to_mode[EVENT_NOTE] < 0 ) { the note is NOT part of an RR set }
+		if (in_range(EVENT_NOTE, LOW_KEY, HIGH_KEY))
+
+			{ !!! --- Uncomment for multi-mic instruments ---!!! }
+			
+			if ($btn_mute_mic1 = 1)
+				disallow_group(%key_to_group_ID_mic1[EVENT_NOTE])
+			end if
+
+			if ($btn_mute_mic2 = 1)
+				disallow_group(%key_to_group_ID_mic2[EVENT_NOTE])
+			end if
+
+			if ($btn_mute_mic3 = 1)
+				disallow_group(%key_to_group_ID_mic3[EVENT_NOTE])
+			end if
+
+			{Continue...}
+
+			play_note(EVENT_NOTE, EVENT_VELOCITY, 0, -1) {play the note}
+
+		end if
+	else
+		disallow_group($ALL_GROUPS)
+
+		{ !!! Uncomment for single mic instruments !!! }
+
+		{ allow_group(%key_to_group_ID[EVENT_NOTE]) }
+
+							{ * OR * }
+
+		{ !!! Uncomment this for multi-mic instruments !!! }
+
+		if ($btn_mute_mic1 = 0) {mute button set to unmuted}
+			allow_group(%key_to_group_ID_mic1[current_note])
+		end if
+
+		if ($btn_mute_mic2 = 0) {not muted}
+			allow_group(%key_to_group_ID_mic2[current_note])
+		end if
+
+		if ($btn_mute_mic3 = 0) {not muted}
+			allow_group(%key_to_group_ID_mic3[current_note])
+		end if
+
+		{continutes...}
+
+		play_note(%key_to_cycle_pos[EVENT_NOTE], EVENT_VELOCITY, 0, -1)
+
+		call func_advance_cycle_position()
+
+	end if
+
+

@@ -1,0 +1,42 @@
+
+import '_RR_Drum_library.ksp'
+
+
+on init
+
+
+	{* PRAGMA - SAVE TO FILE ON COMPILE *}
+	{#pragma save_compiled_source ../Resources/scripts/RR_v2_module_main.txt}
+
+
+	declare $i
+
+	make_perfview()
+
+	{Mute buttons}
+	declare pers ui_button $btn_mute_mic1
+	declare pers ui_button $btn_mute_mic2
+	declare pers ui_button $btn_mute_mic3
+
+	import '_RR_Drum_init.ksp'
+
+	message("RR Drum module")
+
+end on
+
+
+{ ----- FUNCTIONS -----}
+rr.advance_cylce_function()
+
+{ ---- ON NOTE ------}
+
+on note
+
+	import '_RR_Drum_note.ksp'
+
+
+	{...}
+
+
+end on
+

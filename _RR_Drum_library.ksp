@@ -6,7 +6,7 @@ macro rr.config(multi_mic) {multi-mic (1 for yes, 0 for single mic)}
 end macro
 
 
-{ ----- Congifure NON-RR zones and groups ---- }
+{ ----- Configure NON-RR zones and groups ---- }
 
 macro rr.init_create_non_RR_zone(note, name, color_constant, mic1_grp_ID, mic2_grp_ID, mic3_grp_ID) {note, name, color_constant, mic1_grp_ID, mic2_grp_ID, mic3_grp_ID}
 
